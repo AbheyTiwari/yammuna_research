@@ -65,3 +65,29 @@ No build tools needed — just clone and open in a browser.
 git clone https://github.com/your-username/yamuna-ncr-report.git
 cd yamuna-ncr-report
 open index.html  # or double-click the file
+```
+
+🌿 Purpose & Impact
+This report is part of the Hamari Yamuna Project, under the guidance of the Draupadi Dream Trust. It seeks to:
+Raise awareness of the Yamuna's deteriorating condition
+Provide policymakers and stakeholders with actionable insights
+Encourage public involvement through accessible environmental data
+
+📚 Data Sources
+All data visualizations are derived from the "Yamuna NCR Water Research Synthesis" document, supported by:
+CPCB water quality data
+DJB & DDA reports
+NGT rulings and state audit findings
+
+
+📄 License
+MIT License.
+
+🙏 Acknowledgements
+Chart.js
+Tailwind CSS
+Google Fonts
+Draupadi Dream Trust
+Designed & Developed by Abhey Tiwari
+
+📢 Live Preview https://abheytiwari.github.io/yammuna_research/
