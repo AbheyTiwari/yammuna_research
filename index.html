@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The State of the Yamuna River in NCR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: "Riverstone Calm" - A calming palette using warm neutrals (stone, sand) for the background, deep blues for primary text and charts, and muted teal/green accents for secondary information and interactive elements. This creates a professional, harmonious feel appropriate for a serious environmental report. -->
+    <!-- Application Structure Plan: A thematic, non-linear, single-page dashboard. The user lands on a high-level "Overview" and can navigate via a sticky header to key themes: "The Allocation & Efficiency Crisis" (combining water sharing with usage/loss), "The Pollution Crisis" (sources and data), "Failing Infrastructure" (STPs, WTPs, groundwater), "The Threatened Floodplains" (encroachment vs. ecology), and "Governance & The Path Forward" (agencies and solutions). This structure transforms a dense report into an explorable story, allowing users to see interconnected issues and drill into areas of interest, which is more engaging than a linear format. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: 1994 Water Allocation -> Goal: Compare proportions -> Viz: Doughnut Chart -> Interaction: Hover for details -> Justification: Instantly shows the share of each state. -> Library: Chart.js.
+        - Report Info: BOD levels over time -> Goal: Show change/trend -> Viz: Line Chart -> Interaction: Toggle locations -> Justification: Visually compelling story of worsening pollution. -> Library: Chart.js.
+        - Report Info: Delhi Water Demand vs. Supply -> Goal: Compare/Show Gap -> Viz: Grouped Bar Chart -> Interaction: Hover for values -> Justification: Clearly illustrates the deficit. -> Library: Chart.js.
+        - Report Info: Sewage Treatment Gap -> Goal: Compare/Show Gap -> Viz: Stacked Bar Chart -> Interaction: Hover for values -> Justification: Effectively shows the scale of untreated sewage. -> Library: Chart.js.
+        - Report Info: Groundwater Extraction -> Goal: Compare states -> Viz: Bar Chart -> Interaction: Hover for values -> Justification: Direct comparison highlights over-exploitation. -> Library: Chart.js.
+        - Report Info: Key Findings (e.g., Governance Failure) -> Goal: Inform/Highlight -> Viz: Styled HTML Cards with icons (Unicode) -> Interaction: Static -> Justification: Breaks up text and draws attention to critical insights. -> Method: HTML/Tailwind.
+        - Report Info: Recommendations -> Goal: Organize/Inform -> Viz: HTML Accordion -> Interaction: Click to expand -> Justification: Presents dense text in a manageable, user-controlled way. -> Method: HTML/JS/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8; /* Warm off-white */
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 350px;
+            max-height: 400px;
+            width: 100%;
+            max-width: 600px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link.active {
+            color: #1E3A8A; /* Dark Blue */
+            border-bottom-color: #1E3A8A;
+        }
+        .stat-card {
+            background-color: #ffffff;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 lg:px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-blue-900">Yamuna NCR Report</h1>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#overview" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Overview</a>
+                    <a href="#allocation" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Allocation & Efficiency</a>
+                    <a href="#pollution" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Pollution Crisis</a>
+                    <a href="#infrastructure" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Infrastructure</a>
+                    <a href="#floodplains" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Floodplains</a>
+                    <a href="#governance" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Governance & Solutions</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-800 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <a href="#overview" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Overview</a>
+            <a href="#allocation" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Allocation & Efficiency</a>
+            <a href="#pollution" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Pollution Crisis</a>
+            <a href="#infrastructure" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Infrastructure</a>
+            <a href="#floodplains" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Floodplains</a>
+            <a href="#governance" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Governance & Solutions</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="overview" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-6 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold text-blue-900 tracking-tight">The Yamuna River's Critical Condition</h2>
+                <p class="mt-4 md:mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-600">A synthesis of water management challenges in India's National Capital Region. The river faces severe degradation from pollution, over-extraction, and fragmented governance, threatening the region's sustainability.</p>
+                
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    <div class="stat-card">
+                        <p class="text-4xl font-bold text-red-600">127 mg/l</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Peak Pollution Level (BOD)</p>
+                        <p class="text-sm text-gray-500">Over 42 times the acceptable standard of <3 mg/l, recorded at Najafgarh drain outfall.</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-4xl font-bold text-orange-600">52%</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Non-Revenue Water</p>
+                        <p class="text-sm text-gray-500">More than half of Delhi's treated water is lost to leakages and theft.</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-4xl font-bold text-yellow-600">75%</p>
+                        <p class="mt-2 text-gray-700 font-semibold">Floodplain Encroachment</p>
+                        <p class="text-sm text-gray-500">Nearly 7,362 of 9,700 hectares of Delhi's floodplains are illegally occupied.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="allocation" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">The Allocation & Efficiency Crisis</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">This section explores the dual challenge of distributing the Yamuna's water among states and the severe inefficiencies in how that water is used, leading to massive losses and a widening gap between demand and supply.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Inter-State Water Sharing (1994 MoU)</h3>
+                        <p class="text-gray-700 mb-6">The 1994 Memorandum of Understanding was an interim agreement to allocate the Yamuna's surface flow. However, its provisional nature and unresolved issues have led to persistent disputes, hindering collaborative management and turning water into a political tool.</p>
+                        <div class="chart-container">
+                            <canvas id="allocationChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Delhi's Urban Water Deficit</h3>
+                        <p class="text-gray-700 mb-6">Delhi faces a significant and growing gap between its water needs and the amount its system can produce. Compounding this, a staggering 52% of the water that is treated and supplied is lost as Non-Revenue Water (NRW) through leaks, theft, and billing issues.</p>
+                        <div class="chart-container">
+                            <canvas id="delhiWaterGapChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pollution" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-red-700">The Pollution Crisis: A River Turned Drain</h2>
+                     <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The Yamuna has functionally transformed into an open sewer, especially in its 22km Delhi stretch. This section visualizes the alarming pollution levels and identifies the primary sources contributing to the river's ecological death.</p>
+                </div>
+                <div class="grid md:grid-cols-5 gap-8 items-center">
+                     <div class="md:col-span-2">
+                        <h3 class="text-2xl font-semibold text-red-800 mb-4">Primary Pollution Sources</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-4 text-blue-600">🏠</span>
+                                <div>
+                                    <h4 class="font-bold">Domestic Sewage (85%)</h4>
+                                    <p class="text-gray-600">Untreated or poorly treated sewage from urban centers is the single largest contributor to the river's pollution load.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-4 text-gray-600">🏭</span>
+                                <div>
+                                    <h4 class="font-bold">Industrial Effluents</h4>
+                                    <p class="text-gray-600">Toxic waste from industries, particularly in areas like Panipat and Karnal, introduces harmful chemicals into the water.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-4 text-green-700">🗑️</span>
+                                <div>
+                                    <h4 class="font-bold">Solid Waste & Other Sources</h4>
+                                    <p class="text-gray-600">Indiscriminate dumping of garbage, agricultural runoff, and religious offerings further degrade water quality.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md:col-span-3">
+                        <h3 class="text-2xl font-semibold text-red-800 mb-4 text-center">Worsening Water Quality (BOD Levels)</h3>
+                        <p class="text-center text-gray-700 mb-4">Biological Oxygen Demand (BOD) measures organic pollution. A healthy river has a BOD below 3 mg/l. The chart shows a dramatic decline in water quality at key points along the Delhi stretch, with levels spiking to over 40 times the safe limit.</p>
+                        <div class="chart-container h-96">
+                            <canvas id="bodChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="infrastructure" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Failing Infrastructure</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">This section examines the critical gaps in Delhi's wastewater treatment capabilities and the unsustainable over-extraction of groundwater, both of which are central to the region's water crisis.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">The Sewage Treatment Gap</h3>
+                        <p class="text-gray-700 mb-6">Delhi generates more sewage than its treatment plants can handle. Even for the water that reaches the plants, a significant portion is not treated due to underutilization and poor compliance with standards, resulting in 174 Million Gallons per Day (MGD) of untreated sewage flowing directly into the Yamuna.</p>
+                        <div class="chart-container">
+                            <canvas id="stpCapacityChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Groundwater Over-Extraction</h3>
+                        <p class="text-gray-700 mb-6">NCR states are mining groundwater at an unsustainable rate, with extraction far exceeding natural recharge. This rapid depletion threatens long-term water security and leads to quality degradation, impacting the millions who depend on it.</p>
+                        <div class="chart-container">
+                            <canvas id="groundwaterChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="floodplains" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-green-800">The Threatened Floodplains</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The Yamuna's floodplains are vital ecosystems that recharge groundwater and mitigate floods. This section highlights the severe threat from urban encroachment and the conflict between ecological preservation and development.</p>
+                </div>
+                <div class="bg-green-50 border-l-4 border-green-600 p-6 rounded-r-lg max-w-4xl mx-auto">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <span class="text-3xl">🏞️</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-2xl font-bold text-green-900">Encroachment vs. Ecology</h3>
+                            <p class="mt-2 text-gray-700">Despite being critical ecological zones, nearly <span class="font-bold text-red-600">75% of Delhi's Yamuna floodplains</span> have been illegally encroached upon by unauthorized construction. This drastically reduces the river's capacity to handle floodwaters, as seen in the 2023 floods. Development and "beautification" projects often prioritize construction over preserving these natural buffers, increasing flood risk and destroying vital habitats. The National Green Tribunal has repeatedly criticized authorities for failing to protect these areas, highlighting a systemic failure to balance urban growth with environmental resilience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="governance" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Governance & The Path Forward</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The root of the Yamuna's crisis is a systemic failure in governance. This section outlines the key challenges in coordination and enforcement, and presents the report's core recommendations for a sustainable future.</p>
+                </div>
+                 <div class="max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-semibold text-blue-800 mb-6 text-center">Key Recommendations for Action</h3>
+                    <div id="accordion-container" class="space-y-4">
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-blue-900 text-white mt-16">
+        <div class="container mx-auto py-6 px-4 lg:px-6 text-center text-sm">
+            <p>This interactive report is a synthesis of the "Yamuna NCR Water Research Synthesis" report.</p>
+            <p>Application created for educational and informational purposes.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const chartColors = {
+        blue: 'rgba(30, 58, 138, 0.8)',
+        red: 'rgba(199, 57, 57, 0.8)',
+        orange: 'rgba(234, 88, 12, 0.8)',
+        green: 'rgba(22, 101, 52, 0.8)',
+        yellow: 'rgba(217, 119, 6, 0.8)',
+        teal: 'rgba(13, 148, 136, 0.8)',
+        lightBlue: 'rgba(59, 130, 246, 0.6)',
+        lightRed: 'rgba(239, 68, 68, 0.6)',
+        lightGreen: 'rgba(34, 197, 94, 0.6)',
+    };
+    
+    const allocationData = {
+        labels: ['Haryana', 'Uttar Pradesh', 'Rajasthan', 'Himachal Pradesh', 'NCT of Delhi'],
+        datasets: [{
+            label: 'Annual Water Allocation (BCM)',
+            data: [5.730, 4.032, 1.119, 0.378, 0.724],
+            backgroundColor: [
+                chartColors.blue,
+                chartColors.green,
+                chartColors.orange,
+                chartColors.teal,
+                chartColors.red
+            ],
+            borderColor: '#FDFBF8',
+            borderWidth: 2,
+        }]
+    };
+
+    const delhiWaterData = {
+        labels: ['Water Status (MGD)'],
+        datasets: [
+            {
+                label: 'Demand',
+                data: [1260],
+                backgroundColor: chartColors.red,
+                borderColor: chartColors.red,
+                borderWidth: 1
+            },
+            {
+                label: 'Production',
+                data: [937],
+                backgroundColor: chartColors.blue,
+                borderColor: chartColors.blue,
+                borderWidth: 1
+            },
+            {
+                label: 'Supply Gap',
+                data: [323],
+                backgroundColor: chartColors.orange,
+                borderColor: chartColors.orange,
+                borderWidth: 1
+            }
+        ]
+    };
+
+    const bodData = {
+        labels: ['Jan 2023', 'Nov 2023', 'Dec 2024', 'Jan 2025'],
+        datasets: [{
+            label: 'Najafgarh Drain Outfall',
+            data: [53, null, null, 127],
+            borderColor: chartColors.red,
+            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+            tension: 0.1,
+            fill: true
+        }, {
+            label: 'ISBT Kashmere Gate',
+            data: [null, 52, 51, null],
+            borderColor: chartColors.orange,
+            backgroundColor: 'rgba(234, 88, 12, 0.1)',
+            tension: 0.1,
+            fill: true
+        }, {
+            label: 'Shahdara Drain (Kalindi Kunj)',
+            data: [56, null, null, 127],
+            borderColor: chartColors.yellow,
+            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+            tension: 0.1,
+            fill: true
+        }]
+    };
+
+    const stpData = {
+        labels: ['Sewage Treatment (MGD)'],
+        datasets: [{
+            label: 'Treated',
+            data: [618],
+            backgroundColor: chartColors.blue,
+        }, {
+            label: 'Untreated',
+            data: [174],
+            backgroundColor: chartColors.red,
+        }, {
+            label: 'Capacity Unutilized',
+            data: [146], // 764 (Total) - 618 (Utilized)
+            backgroundColor: chartColors.yellow,
+        }]
+    };
+
+    const groundwaterData = {
+        labels: ['Haryana', 'Ghaziabad (UP)', 'Noida (UP)', 'Other States (>100%)'],
+        datasets: [{
+            label: 'Groundwater Extraction (% of Recharge)',
+            data: [136, 123, 104.8, 100],
+            backgroundColor: [
+                chartColors.red,
+                chartColors.orange,
+                chartColors.yellow,
+                'rgba(120, 113, 108, 0.8)'
+            ]
+        }]
+    };
+    
+    const recommendations = [
+        { title: "Strengthen Inter-State Cooperation", content: "The 'interim' 1994 agreement needs to be replaced with a renewed, legally binding water-sharing mechanism. It must involve all basin states and prioritize ecological flow requirements alongside consumptive uses, facilitated by a neutral scientific body." },
+        { title: "Achieve 100% Effective Wastewater Treatment", content: "Bridge the gap between sewage generation and effective treatment. This requires accelerating construction of STPs/CETPs and, crucially, stringent enforcement of discharge standards with independent audits and accountability for non-compliance." },
+        { title: "Implement Aggressive NRW Reduction", content: "Tackle the massive waste of treated water (Non-Revenue Water) by investing in smart metering, replacing old pipelines, and strengthening legal frameworks and enforcement against water theft and illegal connections." },
+        { title: "Prioritize Groundwater Recharge & Regulation", content: "Combat over-extraction through large-scale rainwater harvesting, rejuvenating water bodies, and creating artificial recharge structures. Simultaneously, enforce strict regulations on groundwater extraction for all sectors." },
+        { title: "Strictly Enforce Floodplain Protection", content: "The ecological integrity of floodplains is paramount. All illegal encroachments must be systematically removed. Riverfront projects must align with ecological restoration, not just beautification, and a minimum freshwater e-flow of 23 cumecs must be ensured." },
+        { title: "Enhance Data Transparency & Coordination", content: "Create a centralized, real-time, and publicly accessible data platform for water quality, quantity, and infrastructure performance. An empowered, politically neutral inter-agency task force is needed to ensure seamless coordination and enforcement." },
+    ];
+    
+    const createDoughnutChart = (ctx, data, title) => {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: title, font: { size: 16 } }
+                }
+            }
+        });
+    };
+    
+    const createBarChart = (ctx, data, title, isStacked = false) => {
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: isStacked },
+                    y: { stacked: isStacked, beginAtZero: true }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: title, font: { size: 16 } }
+                }
+            }
+        });
+    };
+
+    const createLineChart = (ctx, data, title) => {
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'BOD (mg/l)' } } },
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: title, font: { size: 16 } },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                interaction: { intersect: false, mode: 'index' },
+            }
+        });
+    };
+    
+    const allocationCtx = document.getElementById('allocationChart')?.getContext('2d');
+    if (allocationCtx) createDoughnutChart(allocationCtx, allocationData, 'Annual Water Allocation by State (BCM)');
+
+    const delhiWaterCtx = document.getElementById('delhiWaterGapChart')?.getContext('2d');
+    if (delhiWaterCtx) createBarChart(delhiWaterCtx, delhiWaterData, 'Delhi Daily Water Status (MGD)');
+    
+    const bodCtx = document.getElementById('bodChart')?.getContext('2d');
+    if (bodCtx) createLineChart(bodCtx, bodData, 'BOD Pollution Levels in Yamuna (Delhi Stretch)');
+    
+    const stpCtx = document.getElementById('stpCapacityChart')?.getContext('2d');
+    if (stpCtx) createBarChart(stpCtx, stpData, 'Delhi Sewage Treatment Status (MGD)', true);
+
+    const groundwaterCtx = document.getElementById('groundwaterChart')?.getContext('2d');
+    if(groundwaterCtx) createBarChart(groundwaterCtx, groundwaterData, 'Groundwater Extraction (% of Annual Recharge)');
+
+    const accordionContainer = document.getElementById('accordion-container');
+    if(accordionContainer){
+        recommendations.forEach((rec, index) => {
+            const item = document.createElement('div');
+            item.className = 'bg-white border border-gray-200 rounded-lg';
+            item.innerHTML = `
+                <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-blue-800 hover:bg-blue-50 focus:outline-none">
+                    <span>${rec.title}</span>
+                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="p-4 pt-0 text-gray-600">${rec.content}</p>
+                </div>
+            `;
+            accordionContainer.appendChild(item);
+        });
+        
+        accordionContainer.addEventListener('click', (e) => {
+            const button = e.target.closest('.accordion-button');
+            if(button){
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                
+                button.parentElement.parentElement.querySelectorAll('.accordion-content').forEach(cont => {
+                    if (cont !== content) {
+                        cont.style.maxHeight = null;
+                        cont.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                    }
+                });
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.classList.remove('rotate-180');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.classList.add('rotate-180');
+                }
+            }
+        });
+    }
+
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: '-50% 0px -50% 0px' });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+});
+</script>
+</body>
+</html>
