@@ -61,6 +61,27 @@
             overflow: hidden;
             transition: max-height 0.5s ease-in-out;
         }
+        /* Styles for the new sections */
+        .kpi-box {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .household-card {
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .household-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .household-card.active {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 2px #2563EB;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -78,11 +99,11 @@
                     <a href="#infrastructure" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Infrastructure</a>
                     <a href="#floodplains" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Floodplains</a>
                     <a href="#governance" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Governance & Solutions</a>
-                    <a href="#problem" class="block py-2 nav-link">The Gap</a>
-                    <a href="#households" class="block py-2 nav-link">Households</a>
-                    <a href="#metering" class="block py-2 nav-link">Metering Crisis</a>
-                    <a href="#equity" class="block py-2 nav-link">Equity</a>
-                    <a href="#recommendations" class="block py-2 nav-link">Solutions</a>
+                    <a href="#problem" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">The Gap</a>
+                    <a href="#households" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Households</a>
+                    <a href="#metering" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Metering Crisis</a>
+                    <a href="#equity" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Equity</a>
+                    <a href="#recommendations" class="nav-link text-gray-600 hover:text-blue-800 border-b-2 border-transparent pb-1">Solutions</a>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-800 focus:outline-none">
@@ -98,6 +119,11 @@
             <a href="#infrastructure" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Infrastructure</a>
             <a href="#floodplains" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Floodplains</a>
             <a href="#governance" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Governance & Solutions</a>
+            <a href="#problem" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">The Gap</a>
+            <a href="#households" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Households</a>
+            <a href="#metering" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Metering Crisis</a>
+            <a href="#equity" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Equity</a>
+            <a href="#recommendations" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Solutions</a>
         </div>
     </header>
 
@@ -111,7 +137,7 @@
                     <div class="stat-card">
                         <p class="text-4xl font-bold text-red-600">127 mg/l</p>
                         <p class="mt-2 text-gray-700 font-semibold">Peak Pollution Level (BOD)</p>
-                        <p class="text-sm text-gray-500">Over 42 times the acceptable standard of <3 mg/l, recorded at Najafgarh drain outfall.</p>
+                        <p class="text-sm text-gray-500">Over 42 times the acceptable standard of &lt;3 mg/l, recorded at Najafgarh drain outfall.</p>
                     </div>
                     <div class="stat-card">
                         <p class="text-4xl font-bold text-orange-600">52%</p>
@@ -156,10 +182,10 @@
             <div class="container mx-auto px-4 lg:px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-red-700">The Pollution Crisis: A River Turned Drain</h2>
-                     <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The Yamuna has functionally transformed into an open sewer, especially in its 22km Delhi stretch. This section visualizes the alarming pollution levels and identifies the primary sources contributing to the river's ecological death.</p>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The Yamuna has functionally transformed into an open sewer, especially in its 22km Delhi stretch. This section visualizes the alarming pollution levels and identifies the primary sources contributing to the river's ecological death.</p>
                 </div>
                 <div class="grid md:grid-cols-5 gap-8 items-center">
-                     <div class="md:col-span-2">
+                    <div class="md:col-span-2">
                         <h3 class="text-2xl font-semibold text-red-800 mb-4">Primary Pollution Sources</h3>
                         <ul class="space-y-4">
                             <li class="flex items-start">
@@ -223,7 +249,7 @@
 
         <section id="floodplains" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-4 lg:px-6">
-                 <div class="text-center mb-12">
+                    <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-green-800">The Threatened Floodplains</h2>
                     <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The Yamuna's floodplains are vital ecosystems that recharge groundwater and mitigate floods. This section highlights the severe threat from urban encroachment and the conflict between ecological preservation and development.</p>
                 </div>
@@ -241,101 +267,40 @@
             </div>
         </section>
 
-        <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF7;
-            color: #3C3C3C;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
-        }
-        .nav-link {
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #2563EB;
-        }
-        .kpi-box {
-            background-color: #FFFFFF;
-            border: 1px solid #E5E7EB;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-        .household-card {
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .household-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-        .household-card.active {
-            border-color: #2563EB;
-            box-shadow: 0 0 0 2px #2563EB;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-    </style>
-
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-gray-800">NCR Water Crisis</h1>
-            <ul class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
-
-            </ul>
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden">
-            <ul class="px-6 pb-4 space-y-2">
-            </ul>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-6 py-12">
-        
-        <section id="intro" class="text-center mb-24">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">A Region Under Stress</h2>
-            <p class="max-w-3xl mx-auto text-lg text-gray-600 mb-12">
-                Delhi-NCR's rapid growth has dangerously outpaced its water infrastructure. An outdated water sharing agreement, failing metering systems, and deep inequities have created a systemic crisis, threatening the water security of millions. This analysis explores the core challenges and potential pathways forward.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div class="kpi-box">
-                    <p class="text-4xl font-bold text-blue-600">300 MGD</p>
-                    <p class="text-sm font-medium text-gray-500 mt-2">Daily Water Demand-Supply Gap</p>
+        <section id="governance" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 lg:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-purple-800">Governance & The Path Forward</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Addressing the Yamuna crisis requires robust governance, inter-state cooperation, and effective policy implementation. This section outlines the fragmented institutional landscape and the critical need for a unified approach.</p>
                 </div>
-                <div class="kpi-box">
-                    <p class="text-4xl font-bold text-red-600">52%</p>
-                    <p class="text-sm font-medium text-gray-500 mt-2">Non-Revenue Water (Lost or Unbilled)</p>
-                </div>
-                <div class="kpi-box">
-                    <p class="text-2xl font-bold text-amber-600">₹1.42 Lakh Cr</p>
-                    <p class="text-sm font-medium text-gray-500 mt-2">Total Pending Water Bill Dues</p>
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-purple-800 mb-4">Fragmented Authority</h3>
+                        <p class="text-gray-700 mb-6">The management of the Yamuna River is complicated by a multitude of agencies and jurisdictions, leading to a lack of accountability and coordinated action. From state water boards to central ministries and environmental tribunals, responsibilities often overlap or fall through the cracks.</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Yamuna River Board (YRB) - Limited enforcement powers.</li>
+                            <li>Delhi Jal Board (DJB) - Responsible for water supply and sewage in Delhi.</li>
+                            <li>Central Pollution Control Board (CPCB) - Sets standards, but state boards implement.</li>
+                            <li>National Green Tribunal (NGT) - Judicial oversight, but orders often face delays in execution.</li>
+                            <li>Multiple state governments (Haryana, Uttar Pradesh, Himachal Pradesh, Delhi) with differing priorities.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-purple-800 mb-4">Policy & Enforcement Gaps</h3>
+                        <p class="text-gray-700 mb-6">Despite numerous policies and court directives, effective implementation remains a significant challenge. This includes failures in enforcing pollution control norms, protecting floodplains, and ensuring equitable water distribution.</p>
+                        <div class="bg-purple-50 border-l-4 border-purple-600 p-6 rounded-r-lg">
+                            <div class="flex items-center mb-3">
+                                <span class="text-3xl mr-4">⚖️</span>
+                                <h4 class="font-bold text-purple-900 text-xl">Legal Directives vs. Reality</h4>
+                            </div>
+                            <p class="text-gray-700">The NGT has issued strict orders for floodplain demarcation, removal of encroachments, and ensuring 100% sewage treatment. However, progress is slow, and violations continue, highlighting a disconnect between legal mandates and on-ground action.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
+        <!-- New sections added below -->
         <div class="border-t border-gray-200 my-16"></div>
 
         <section id="problem" class="py-16">
@@ -396,7 +361,7 @@
         <div class="border-t border-gray-200 my-16"></div>
         
         <section id="equity" class="py-16 bg-blue-50 rounded-xl">
-             <div class="text-center mb-12">
+                <div class="text-center mb-12">
                 <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">The Unseen Majority & The Equity Gap</h3>
                 <p class="max-w-3xl mx-auto text-lg text-gray-600">
                     Official statistics often mask the most critical issue: water access inequity. A vast portion of the population lives in informal settlements, largely disconnected from the formal water grid and reliant on expensive, unreliable alternatives.
@@ -408,7 +373,7 @@
                         <p class="text-4xl font-bold text-blue-600">>30%</p>
                         <p class="text-sm font-medium text-gray-500 mt-2">of Delhi's population lives in informal or "illegal" colonies</p>
                     </div>
-                     <div class="kpi-box">
+                    <div class="kpi-box">
                         <p class="text-4xl font-bold text-blue-600">3 Million</p>
                         <p class="text-sm font-medium text-gray-500 mt-2">people live in Jhuggi-Jhopri (slum) clusters, often based on "rough assessments"</p>
                     </div>
@@ -425,7 +390,7 @@
                                 </div>
                             </div>
                             <div class="border-t border-dashed my-2"></div>
-                             <div class="flex items-center">
+                            <div class="flex items-center">
                                 <span class="text-2xl mr-4">💧</span>
                                 <div>
                                     <h5 class="font-bold">Informal Settlements</h5>
@@ -434,7 +399,7 @@
                             </div>
                         </div>
                     </div>
-                     <p class="text-center mt-4 text-sm text-gray-500">This division perpetuates inequity, as the legal status of informal settlements is a major barrier to providing formal water and sanitation infrastructure.</p>
+                    <p class="text-center mt-4 text-sm text-gray-500">This division perpetuates inequity, as the legal status of informal settlements is a major barrier to providing formal water and sanitation infrastructure.</p>
                 </div>
             </div>
         </section>
@@ -464,11 +429,12 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Data for the charts and interactive elements
     const appData = {
         population: {
             labels: ['1994', '2019'],
-            delhiPopulation: [1.25, 2.25],
-            waterAllocation: 0.724,
+            delhiPopulation: [9.98, 19.8], // in millions
+            waterAllocation: 0.724, // in BCM (Billion Cubic Meters)
         },
         nrw: {
             labels: ['Physical Losses (Leakage)', 'Commercial Losses (Unbilled)'],
@@ -488,614 +454,776 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h4 class="text-lg font-bold mb-2">DDA Colonies</h4>
                     <p class="text-gray-600 mb-4">Developed by the Delhi Development Authority, these are the backbone of the city's planned housing. However, with many colonies now over 50 years old, they face significant challenges with aging water infrastructure, including deteriorating pipelines and increased leakage.</p>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li><strong>Key Stat:</strong> Over 30 DDA colonies are more than 50 years old.</li>
-                        <li><strong>Challenge:</strong> Requires significant investment in modernizing outdated water networks.</li>
-                        <li><strong>Water Profile:</strong> Formal, metered connections but prone to physical water losses due to old infrastructure.</li>
-                    </ul>`
+                        <li>Aging infrastructure leading to significant water loss.</li>
+                        <li>Formal connections, but often unreliable supply.</li>
+                        <li>Residents often resort to borewells due to supply gaps.</li>
+                    </ul>
+                `
             },
             {
-                id: 'private',
-                name: 'Private Group Housing',
-                icon: '🏙️',
-                summary: 'The most popular modern option, driving premium sales.',
+                id: 'unauthorised',
+                name: 'Unauthorised Colonies',
+                icon: '🏘️',
+                summary: 'Rapidly growing, often lacking formal infrastructure.',
                 details: `
-                    <h4 class="text-lg font-bold mb-2">Private Group Housing</h4>
-                    <p class="text-gray-600 mb-4">Includes apartment complexes and gated communities. This sector is booming, especially in the luxury segment. These high-density ecosystems place concentrated strain on local water and sewage networks.</p>
+                    <h4 class="text-lg font-bold mb-2">Unauthorised Colonies</h4>
+                    <p class="text-gray-600 mb-4">These colonies have developed organically without formal planning and often lack basic civic infrastructure, including piped water supply. Residents rely heavily on water tankers, private borewells, or illegal connections, leading to high costs and poor water quality.</p>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li><strong>Key Stat:</strong> 3,960 luxury units sold in Delhi-NCR in the first half of 2025 alone.</li>
-                        <li><strong>Challenge:</strong> High water consumption per capita due to amenities and density can stress local supply.</li>
-                        <li><strong>Water Profile:</strong> Often supplement municipal supply with private borewells. Served by common or individual meters.</li>
-                    </ul>`
+                        <li>Lack of formal water connections.</li>
+                        <li>High dependence on water tankers and private borewells.</li>
+                        <li>Significant equity issues in water access and cost.</li>
+                    </ul>
+                `
             },
             {
-                id: 'independent',
-                name: 'Independent Houses',
+                id: 'jj-clusters',
+                name: 'JJ Clusters (Slums)',
+                icon: '⛺',
+                summary: 'Most vulnerable, minimal formal access.',
+                details: `
+                    <h4 class="text-lg font-bold mb-2">JJ Clusters (Slums)</h4>
+                    <p class="text-gray-600 mb-4">Jhuggi-Jhopri clusters represent the most marginalized communities, often existing without official recognition. Water access is typically limited to community standpipes or illegal connections, leading to extreme water insecurity and health risks.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Minimal to no formal water infrastructure.</li>
+                        <li>Reliance on shared public taps or illegal connections.</li>
+                        <li>High vulnerability to waterborne diseases and exploitation.</li>
+                    </ul>
+                `
+            },
+            {
+                id: 'rural-villages',
+                name: 'Rural Villages (Urbanized)',
                 icon: '🏡',
-                summary: 'The historic fabric of Delhi, still a significant component.',
+                summary: 'Villages absorbed by urban sprawl, retaining rural characteristics.',
                 details: `
-                    <h4 class="text-lg font-bold mb-2">Independent/Individual Houses</h4>
-                    <p class="text-gray-600 mb-4">Standalone homes and plotted housing once dominated Delhi's landscape. While the trend is shifting towards apartments, this typology remains a large part of the housing stock, characterized by lower density.</p>
+                    <h4 class="text-lg font-bold mb-2">Rural Villages (Urbanized)</h4>
+                    <p class="text-gray-600 mb-4">Many original villages within Delhi's expanding urban footprint have been absorbed but retain their distinct characteristics. While some may have piped water, the infrastructure is often insufficient for the increased population density, leading to reliance on groundwater.</p>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li><strong>Key Stat:</strong> A 2007-08 survey showed 73.6% of Delhiites lived in independent houses.</li>
-                        <li><strong>Challenge:</strong> Older properties may have inefficient plumbing and a higher reliance on individual borewells, contributing to groundwater depletion.</li>
-                        <li><strong>Water Profile:</strong> Individual metered connections, but potential for unmonitored groundwater extraction.</li>
-                    </ul>`
+                        <li>Often have older, less robust water infrastructure.</li>
+                        <li>Increased reliance on groundwater due to insufficient piped supply.</li>
+                        <li>Issues with sewage collection and treatment.</li>
+                    </ul>
+                `
             },
             {
-                id: 'industrial',
-                name: 'Industrial & Mixed-Use',
-                icon: '🏭',
-                summary: 'Blurring lines between commercial and residential use.',
+                id: 'resettlement',
+                name: 'Resettlement Colonies',
+                icon: '🏗️',
+                summary: 'Planned for relocated slum dwellers, often with basic services.',
                 details: `
-                    <h4 class="text-lg font-bold mb-2">Industrial & Mixed-Use Units</h4>
-                    <p class="text-gray-600 mb-4">These include formal industrial areas, warehouses, and properties where residential and commercial activities coexist. This mix creates complex water demand and wastewater profiles.</p>
+                    <h4 class="text-lg font-bold mb-2">Resettlement Colonies</h4>
+                    <p class="text-gray-600 mb-4">These are planned colonies where slum dwellers have been relocated. While they are intended to provide better services, the water infrastructure can still be inadequate, leading to intermittent supply and dependence on supplementary sources.</p>
                     <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li><strong>Key Stat:</strong> Okhla Industrial Area had a residential population of nearly 200,000 in 2020.</li>
-                        <li><strong>Challenge:</strong> Differentiating water use for accurate billing and ensuring proper treatment of industrial wastewater.</li>
-                        <li><strong>Water Profile:</strong> Can strain residential supply networks and pose a pollution risk if not managed correctly.</li>
-                    </ul>`
-            },
-            {
-                id: 'informal',
-                name: 'Informal Settlements',
-                icon: '🛖',
-                summary: 'Home to millions, often outside the formal water grid.',
-                details: `
-                    <h4 class="text-lg font-bold mb-2">Informal Settlements</h4>
-                    <p class="text-gray-600 mb-4">Includes Jhuggi-Jhopri (JJ) clusters and unauthorized colonies. This is where the water crisis is most acute. Residents often lack formal connections and legal status, creating huge barriers to infrastructure development.</p>
-                    <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li><strong>Key Stat:</strong> Over 30% of Delhi's population lives in such settlements, with household counts based on "rough assessments".</li>
-                        <li><strong>Challenge:</strong> The primary challenge for water equity. Lack of formal access leads to public health risks and high costs for residents.</li>
-                        <li><strong>Water Profile:</strong> Largely unmetered. Water is accessed via public taps, expensive private tankers, or borewells. A major source of unbilled water consumption.</li>
-                    </ul>`
+                        <li>Basic water infrastructure provided, but often insufficient.</li>
+                        <li>Intermittent water supply is a common issue.</li>
+                        <li>Challenges in maintenance and equitable distribution.</li>
+                    </ul>
+                `
             }
         ],
         recommendations: [
             {
-                title: 'Strengthen Data Infrastructure',
-                content: 'An immediate, comprehensive household survey using modern tech (GIS, satellite imagery) is needed to replace outdated 2011 Census data. Accurate data on all settlement types, including informal ones, is essential for effective planning and equitable resource allocation.'
+                title: 'Renegotiate Water Allocation',
+                content: `
+                    <p class="text-gray-700">The 1994 Yamuna Water Sharing Agreement, expiring in 2025, must be renegotiated to reflect current population densities and water demands across all riparian states. A new, equitable, and dynamic allocation mechanism is crucial for long-term water security.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                        <li>Establish a permanent, empowered Yamuna River Authority with inter-state representation.</li>
+                        <li>Incorporate climate change impacts and future demand projections.</li>
+                        <li>Prioritize ecological flow for river rejuvenation.</li>
+                    </ul>
+                `
             },
             {
-                title: 'Optimize Metering & Billing Systems',
-                content: 'Accelerate the rollout of smart water meters to ensure billing accuracy and rebuild consumer trust. This must be paired with a fair bill waiver scheme for past disputes and the development of context-specific metering solutions for informal settlements to improve revenue and reduce water loss.'
+                title: 'Upgrade & Expand Water Infrastructure',
+                content: `
+                    <p class="text-gray-700">Massive investment is needed to upgrade Delhi's aging water supply and sewage treatment infrastructure. This includes replacing leaky pipelines, expanding treatment capacity, and ensuring all STPs meet discharge standards.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                        <li>Reduce Non-Revenue Water (NRW) from 52% to 15-20% through smart metering and leak detection.</li>
+                        <li>Achieve 100% sewage treatment capacity and ensure operational efficiency of existing STPs.</li>
+                        <li>Explore decentralized wastewater treatment solutions for informal settlements.</li>
+                    </ul>
+                `
             },
             {
-                title: 'Improve Water Access and Equity',
-                content: 'Prioritize the extension of formal, reliable piped water and sewage connections to all underserved areas, especially informal settlements. This infrastructure push must ensure that all collected wastewater is treated to prescribed standards to protect public health and the Yamuna river.'
+                title: 'Implement Effective Metering & Billing',
+                content: `
+                    <p class="text-gray-700">Restore public trust and financial viability by overhauling the metering and billing system. This involves accurate meter readings, transparent billing, and addressing the massive pending dues.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                        <li>Introduce smart meters with real-time consumption data.</li>
+                        <li>Implement a robust grievance redressal mechanism for billing disputes.</li>
+                        <li>Develop a fair and enforceable policy for recovering pending dues from all sectors.</li>
+                    </ul>
+                `
             },
             {
-                title: 'Foster Integrated Planning',
-                content: 'Establish a high-level inter-agency task force (DJB, DDA, NCRPB, Municipalities) to create a unified data platform and an integrated water management master plan. This will break down silos and align urban development with water security goals across the entire NCR.'
+                title: 'Protect & Restore Floodplains',
+                content: `
+                    <p class="text-gray-700">Strict enforcement against encroachment and active restoration of the Yamuna floodplains are essential. These areas are vital for groundwater recharge, flood mitigation, and biodiversity.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                        <li>Demarcate and declare floodplains as "No Construction Zones."</li>
+                        <li>Undertake large-scale ecological restoration, including afforestation and wetland development.</li>
+                        <li>Develop a comprehensive floodplain management plan with public participation.</li>
+                    </ul>
+                `
             },
             {
-                title: 'Renegotiate Water Sharing Agreement',
-                content: 'Urgently renegotiate the 1994 Yamuna Water Sharing Agreement before its 2025 expiration. The new framework must reflect the current demographic reality of Delhi-NCR and account for future growth to ensure a sufficient and fair allocation of raw water.'
+                title: 'Ensure Equitable Access for All',
+                content: `
+                    <p class="text-gray-700">Water is a human right. Policies must ensure formal, affordable, and reliable water access for all residents, especially those in informal settlements who currently bear the highest costs and risks.</p>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 mt-2">
+                        <li>Regularize informal settlements to integrate them into the formal water network.</li>
+                        <li>Invest in public standpipes and community water points where individual connections are not feasible.</li>
+                        <li>Implement progressive tariff structures that ensure affordability for low-income households while promoting conservation.</li>
+                    </ul>
+                `
             }
         ]
     };
 
-    const createPopulationVsWaterChart = () => {
-        const ctx = document.getElementById('populationVsWaterChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: appData.population.labels,
-                datasets: [
-                    {
-                        type: 'line',
-                        label: 'Delhi Population (in Crores)',
-                        data: appData.population.delhiPopulation,
-                        borderColor: '#DC2626',
-                        backgroundColor: '#FEE2E2',
-                        fill: true,
-                        tension: 0.1,
-                        yAxisID: 'y'
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Annual Water Allocation (in BCM)',
-                        data: [appData.population.waterAllocation, appData.population.waterAllocation],
-                        backgroundColor: '#93C5FD',
-                        borderColor: '#2563EB',
-                        borderWidth: 1,
-                        yAxisID: 'y1',
-                        barPercentage: 1.0,
-                        categoryPercentage: 0.8
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.dataset.type === 'line') {
-                                    label += `${context.parsed.y} Crore People`;
-                                } else {
-                                    label += `${context.parsed.y} BCM`;
-                                }
-                                return label;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: {
-                        type: 'linear',
-                        position: 'left',
-                        title: { display: true, text: 'Population (Crores)' },
-                        min: 0,
-                        max: 3,
-                        grid: { drawOnChartArea: false }
-                    },
-                    y1: {
-                        type: 'linear',
-                        position: 'right',
-                        title: { display: true, text: 'Water Allocation (BCM)' },
-                        min: 0,
-                        max: 1,
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-    };
-    
-    const createNrwChart = () => {
-        const ctx = document.getElementById('nrwChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: appData.nrw.labels,
-                datasets: [{
-                    data: appData.nrw.data,
-                    backgroundColor: ['#FBBF24', '#F87171'],
-                    borderColor: '#FFFFFF',
-                    borderWidth: 2,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom' },
-                    tooltip: {
-                        callbacks: {
-                            label: (context) => `${context.label}: ${context.raw}% of total water production`
-                        }
-                    }
-                }
-            }
-        });
-    };
-
-    const createDuesChart = () => {
-        const ctx = document.getElementById('duesChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: appData.dues.labels,
-                datasets: [{
-                    label: 'Pending Dues (in ₹ Crore)',
-                    data: appData.dues.data,
-                    backgroundColor: ['#60A5FA', '#93C5FD', '#BFDBFE'],
-                    borderColor: '#2563EB',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } }
-            }
-        });
-    };
-
-    const setupHouseholdSection = () => {
-        const cardsContainer = document.getElementById('household-cards');
-        const detailsContainer = document.getElementById('household-details-container');
-        
-        appData.households.forEach(h => {
-            const card = document.createElement('div');
-            card.className = 'household-card p-4 bg-white border rounded-lg flex flex-col items-center text-center';
-            card.dataset.id = h.id;
-            card.innerHTML = `
-                <span class="text-4xl mb-2">${h.icon}</span>
-                <h5 class="font-semibold text-sm">${h.name}</h5>
-                <p class="text-xs text-gray-500 mt-1">${h.summary}</p>`;
-            cardsContainer.appendChild(card);
-        });
-
-        cardsContainer.addEventListener('click', (e) => {
-            const card = e.target.closest('.household-card');
-            if (card) {
-                const householdId = card.dataset.id;
-                const householdData = appData.households.find(h => h.id === householdId);
-                
-                document.querySelectorAll('.household-card').forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-
-                detailsContainer.innerHTML = householdData.details;
-            }
-        });
-        
-        document.querySelector('.household-card').click();
-    };
-
-    const setupAccordion = () => {
-        const container = document.getElementById('accordion-container');
-        appData.recommendations.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'border border-gray-200 rounded-lg bg-white';
-            div.innerHTML = `
-                <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-gray-800 focus:outline-none">
-                    <span>${item.title}</span>
-                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <p class="p-4 pt-0 text-gray-600">${item.content}</p>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-
-        container.addEventListener('click', (e) => {
-            const button = e.target.closest('.accordion-button');
-            if (button) {
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('svg');
-
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    icon.classList.remove('rotate-180');
-                } else {
-                    document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
-                    document.querySelectorAll('.accordion-button svg').forEach(i => i.classList.remove('rotate-180'));
-                    
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    icon.classList.add('rotate-180');
-                }
-            }
-        });
-    };
-    
-    const setupMobileMenu = () => {
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    };
-
-    const setupNavHighlighting = () => {
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, { rootMargin: '-30% 0px -60% 0px' });
-
-        sections.forEach(section => observer.observe(section));
-    };
-
-    createPopulationVsWaterChart();
-    createNrwChart();
-    createDuesChart();
-    setupHouseholdSection();
-    setupAccordion();
-    setupMobileMenu();
-    setupNavHighlighting();
-});
-</script>
-
-
-        <section id="governance" class="py-16 md:py-24">
-            <div class="container mx-auto px-4 lg:px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900">Governance & The Path Forward</h2>
-                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The root of the Yamuna's crisis is a systemic failure in governance. This section outlines the key challenges in coordination and enforcement, and presents the report's core recommendations for a sustainable future.</p>
-                </div>
-                 <div class="max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-semibold text-blue-800 mb-6 text-center">Key Recommendations for Action</h3>
-                    <div id="accordion-container" class="space-y-4">
-                        
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-    
-    <footer class="bg-blue-900 text-white mt-16">
-        <div class="container mx-auto py-6 px-4 lg:px-6 text-center text-sm">
-            <p>This interactive report is a synthesis of the "Yamuna NCR Water Research Synthesis" report.</p>
-            <p>Application created for educational and informational purposes.</p>
-        </div>
-    </footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    const chartColors = {
-        blue: 'rgba(30, 58, 138, 0.8)',
-        red: 'rgba(199, 57, 57, 0.8)',
-        orange: 'rgba(234, 88, 12, 0.8)',
-        green: 'rgba(22, 101, 52, 0.8)',
-        yellow: 'rgba(217, 119, 6, 0.8)',
-        teal: 'rgba(13, 148, 136, 0.8)',
-        lightBlue: 'rgba(59, 130, 246, 0.6)',
-        lightRed: 'rgba(239, 68, 68, 0.6)',
-        lightGreen: 'rgba(34, 197, 94, 0.6)',
-    };
-    
-    const allocationData = {
-        labels: ['Haryana', 'Uttar Pradesh', 'Rajasthan', 'Himachal Pradesh', 'NCT of Delhi'],
-        datasets: [{
-            label: 'Annual Water Allocation (BCM)',
-            data: [5.730, 4.032, 1.119, 0.378, 0.724],
-            backgroundColor: [
-                chartColors.blue,
-                chartColors.green,
-                chartColors.orange,
-                chartColors.teal,
-                chartColors.red
-            ],
-            borderColor: '#FDFBF8',
-            borderWidth: 2,
-        }]
-    };
-
-    const delhiWaterData = {
-        labels: ['Water Status (MGD)'],
-        datasets: [
-            {
-                label: 'Demand',
-                data: [1260],
-                backgroundColor: chartColors.red,
-                borderColor: chartColors.red,
-                borderWidth: 1
-            },
-            {
-                label: 'Production',
-                data: [937],
-                backgroundColor: chartColors.blue,
-                borderColor: chartColors.blue,
-                borderWidth: 1
-            },
-            {
-                label: 'Supply Gap',
-                data: [323],
-                backgroundColor: chartColors.orange,
-                borderColor: chartColors.orange,
-                borderWidth: 1
-            }
-        ]
-    };
-
-    const bodData = {
-        labels: ['Jan 2023', 'Nov 2023', 'Dec 2024', 'Jan 2025'],
-        datasets: [{
-            label: 'Najafgarh Drain Outfall',
-            data: [53, null, null, 127],
-            borderColor: chartColors.red,
-            backgroundColor: 'rgba(220, 38, 38, 0.1)',
-            tension: 0.1,
-            fill: true
-        }, {
-            label: 'ISBT Kashmere Gate',
-            data: [null, 52, 51, null],
-            borderColor: chartColors.orange,
-            backgroundColor: 'rgba(234, 88, 12, 0.1)',
-            tension: 0.1,
-            fill: true
-        }, {
-            label: 'Shahdara Drain (Kalindi Kunj)',
-            data: [56, null, null, 127],
-            borderColor: chartColors.yellow,
-            backgroundColor: 'rgba(217, 119, 6, 0.1)',
-            tension: 0.1,
-            fill: true
-        }]
-    };
-
-    const stpData = {
-        labels: ['Sewage Treatment (MGD)'],
-        datasets: [{
-            label: 'Treated',
-            data: [618],
-            backgroundColor: chartColors.blue,
-        }, {
-            label: 'Untreated',
-            data: [174],
-            backgroundColor: chartColors.red,
-        }, {
-            label: 'Capacity Unutilized',
-            data: [146], // 764 (Total) - 618 (Utilized)
-            backgroundColor: chartColors.yellow,
-        }]
-    };
-
-    const groundwaterData = {
-        labels: ['Haryana', 'Ghaziabad (UP)', 'Noida (UP)', 'Other States (>100%)'],
-        datasets: [{
-            label: 'Groundwater Extraction (% of Recharge)',
-            data: [136, 123, 104.8, 100],
-            backgroundColor: [
-                chartColors.red,
-                chartColors.orange,
-                chartColors.yellow,
-                'rgba(120, 113, 108, 0.8)'
-            ]
-        }]
-    };
-    
-    const recommendations = [
-        { title: "Strengthen Inter-State Cooperation", content: "The 'interim' 1994 agreement needs to be replaced with a renewed, legally binding water-sharing mechanism. It must involve all basin states and prioritize ecological flow requirements alongside consumptive uses, facilitated by a neutral scientific body." },
-        { title: "Achieve 100% Effective Wastewater Treatment", content: "Bridge the gap between sewage generation and effective treatment. This requires accelerating construction of STPs/CETPs and, crucially, stringent enforcement of discharge standards with independent audits and accountability for non-compliance." },
-        { title: "Implement Aggressive NRW Reduction", content: "Tackle the massive waste of treated water (Non-Revenue Water) by investing in smart metering, replacing old pipelines, and strengthening legal frameworks and enforcement against water theft and illegal connections." },
-        { title: "Prioritize Groundwater Recharge & Regulation", content: "Combat over-extraction through large-scale rainwater harvesting, rejuvenating water bodies, and creating artificial recharge structures. Simultaneously, enforce strict regulations on groundwater extraction for all sectors." },
-        { title: "Strictly Enforce Floodplain Protection", content: "The ecological integrity of floodplains is paramount. All illegal encroachments must be systematically removed. Riverfront projects must align with ecological restoration, not just beautification, and a minimum freshwater e-flow of 23 cumecs must be ensured." },
-        { title: "Enhance Data Transparency & Coordination", content: "Create a centralized, real-time, and publicly accessible data platform for water quality, quantity, and infrastructure performance. An empowered, politically neutral inter-agency task force is needed to ensure seamless coordination and enforcement." },
-    ];
-    
-    const createDoughnutChart = (ctx, data, title) => {
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom' },
-                    title: { display: true, text: title, font: { size: 16 } }
-                }
-            }
-        });
-    };
-    
-    const createBarChart = (ctx, data, title, isStacked = false) => {
-        new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { stacked: isStacked },
-                    y: { stacked: isStacked, beginAtZero: true }
-                },
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: title, font: { size: 16 } }
-                }
-            }
-        });
-    };
-
-    const createLineChart = (ctx, data, title) => {
-        new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true, title: { display: true, text: 'BOD (mg/l)' } } },
-                plugins: {
-                    legend: { position: 'top' },
-                    title: { display: true, text: title, font: { size: 16 } },
-                    tooltip: { mode: 'index', intersect: false }
-                },
-                interaction: { intersect: false, mode: 'index' },
-            }
-        });
-    };
-    
-    const allocationCtx = document.getElementById('allocationChart')?.getContext('2d');
-    if (allocationCtx) createDoughnutChart(allocationCtx, allocationData, 'Annual Water Allocation by State (BCM)');
-
-    const delhiWaterCtx = document.getElementById('delhiWaterGapChart')?.getContext('2d');
-    if (delhiWaterCtx) createBarChart(delhiWaterCtx, delhiWaterData, 'Delhi Daily Water Status (MGD)');
-    
-    const bodCtx = document.getElementById('bodChart')?.getContext('2d');
-    if (bodCtx) createLineChart(bodCtx, bodData, 'BOD Pollution Levels in Yamuna (Delhi Stretch)');
-    
-    const stpCtx = document.getElementById('stpCapacityChart')?.getContext('2d');
-    if (stpCtx) createBarChart(stpCtx, stpData, 'Delhi Sewage Treatment Status (MGD)', true);
-
-    const groundwaterCtx = document.getElementById('groundwaterChart')?.getContext('2d');
-    if(groundwaterCtx) createBarChart(groundwaterCtx, groundwaterData, 'Groundwater Extraction (% of Annual Recharge)');
-
-    const accordionContainer = document.getElementById('accordion-container');
-    if(accordionContainer){
-        recommendations.forEach((rec, index) => {
-            const item = document.createElement('div');
-            item.className = 'bg-white border border-gray-200 rounded-lg';
-            item.innerHTML = `
-                <button class="accordion-button w-full flex justify-between items-center text-left p-4 font-semibold text-blue-800 hover:bg-blue-50 focus:outline-none">
-                    <span>${rec.title}</span>
-                    <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="accordion-content">
-                    <p class="p-4 pt-0 text-gray-600">${rec.content}</p>
-                </div>
-            `;
-            accordionContainer.appendChild(item);
-        });
-        
-        accordionContainer.addEventListener('click', (e) => {
-            const button = e.target.closest('.accordion-button');
-            if(button){
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('svg');
-                
-                button.parentElement.parentElement.querySelectorAll('.accordion-content').forEach(cont => {
-                    if (cont !== content) {
-                        cont.style.maxHeight = null;
-                        cont.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
-                    }
-                });
-
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    icon.classList.remove('rotate-180');
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    icon.classList.add('rotate-180');
-                }
-            }
-        });
-    }
-
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
+    // --- Mobile Menu Toggle ---
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
     mobileMenuButton.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
     });
-
-    mobileMenu.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+    // Close mobile menu when a link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
     });
+
+    // --- Smooth Scrolling for Navigation ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+            // Update active nav link
+            updateActiveNavLink(this.getAttribute('href'));
+        });
+    });
+
+    // --- Active Navigation Link on Scroll ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const updateActiveNavLink = (currentId) => {
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentId}`) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5 // Adjust as needed
+    };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
-                });
+                updateActiveNavLink(entry.target.id);
             }
         });
-    }, { rootMargin: '-50% 0px -50% 0px' });
+    }, observerOptions);
 
     sections.forEach(section => {
         observer.observe(section);
     });
+
+    // Initial active link set on load
+    if (window.location.hash) {
+        updateActiveNavLink(window.location.hash.substring(1));
+    } else {
+        updateActiveNavLink('overview'); // Default to overview
+    }
+
+
+    // --- Chart Initializations ---
+
+    // 1. Allocation Chart (Doughnut)
+    new Chart(document.getElementById('allocationChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Haryana', 'Uttar Pradesh', 'Delhi', 'Rajasthan', 'Himachal Pradesh'],
+            datasets: [{
+                data: [57.38, 36.51, 4.09, 1.71, 0.31], // in % of total available water
+                backgroundColor: ['#4299E1', '#63B3ED', '#2B6CB0', '#90CDF4', '#BEE3F8'], // Blues
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: '1994 Yamuna Water Allocation (BCM)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C' // Darker text
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed.toFixed(2) + '%';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568' // Gray text
+                    }
+                }
+            }
+        }
+    });
+
+    // 2. Delhi Water Demand vs. Supply (Grouped Bar)
+    new Chart(document.getElementById('delhiWaterGapChart'), {
+        type: 'bar',
+        data: {
+            labels: ['2020', '2025 (Projected)', '2030 (Projected)'],
+            datasets: [
+                {
+                    label: 'Demand (MGD)',
+                    data: [1200, 1400, 1600],
+                    backgroundColor: '#4299E1', // Blue
+                    borderRadius: 5
+                },
+                {
+                    label: 'Supply (MGD)',
+                    data: [900, 1000, 1100],
+                    backgroundColor: '#F6AD55', // Orange
+                    borderRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Delhi Water Demand vs. Supply (MGD)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Million Gallons per Day (MGD)',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 3. BOD Levels Over Time (Line Chart)
+    new Chart(document.getElementById('bodChart'), {
+        type: 'line',
+        data: {
+            labels: ['2010', '2015', '2020', '2023'],
+            datasets: [
+                {
+                    label: 'Palla (Entry Point)',
+                    data: [2, 3, 2, 2.5],
+                    borderColor: '#48BB78', // Green
+                    backgroundColor: 'rgba(72, 187, 120, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#48BB78'
+                },
+                {
+                    label: 'Okhla Barrage (Exit Point)',
+                    data: [30, 60, 85, 100],
+                    borderColor: '#E53E3E', // Red
+                    backgroundColor: 'rgba(229, 62, 62, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#E53E3E'
+                },
+                {
+                    label: 'Najafgarh Drain Outfall (Peak Pollution)',
+                    data: [50, 90, 110, 127],
+                    borderColor: '#DD6B20', // Orange
+                    backgroundColor: 'rgba(221, 107, 32, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#DD6B20'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'BOD Levels in Yamuna River (mg/l)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'BOD (mg/l)',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 4. Sewage Treatment Gap (Stacked Bar)
+    new Chart(document.getElementById('stpCapacityChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Delhi'],
+            datasets: [
+                {
+                    label: 'Treated Sewage (MGD)',
+                    data: [796], // Example value
+                    backgroundColor: '#48BB78', // Green
+                    borderRadius: 5
+                },
+                {
+                    label: 'Untreated Sewage (MGD)',
+                    data: [174], // Example value
+                    backgroundColor: '#E53E3E', // Red
+                    borderRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Delhi Sewage Treatment Capacity vs. Actual (MGD)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Million Gallons per Day (MGD)',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 5. Groundwater Over-Extraction (Bar Chart)
+    new Chart(document.getElementById('groundwaterChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Delhi', 'Haryana', 'Uttar Pradesh'],
+            datasets: [
+                {
+                    label: 'Groundwater Extraction (% of Recharge)',
+                    data: [130, 110, 80], // Example values: >100% means over-extraction
+                    backgroundColor: ['#E53E3E', '#DD6B20', '#4299E1'], // Red, Orange, Blue
+                    borderRadius: 5
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Groundwater Extraction (% of Annual Recharge)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '% of Annual Recharge',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 6. Population vs. Water Allocation Chart (Combined Line/Bar)
+    new Chart(document.getElementById('populationVsWaterChart'), {
+        type: 'bar', // Start with bar for population
+        data: {
+            labels: appData.population.labels,
+            datasets: [
+                {
+                    label: 'Delhi Population (Millions)',
+                    data: appData.population.delhiPopulation,
+                    backgroundColor: '#4299E1', // Blue for population
+                    yAxisID: 'y-population',
+                    borderRadius: 5
+                },
+                {
+                    type: 'line', // Overlay a line for water allocation
+                    label: 'Water Allocation (BCM)',
+                    data: [appData.population.waterAllocation, appData.population.waterAllocation], // Static allocation
+                    borderColor: '#E53E3E', // Red for allocation
+                    borderWidth: 3,
+                    fill: false,
+                    yAxisID: 'y-water',
+                    pointRadius: 5,
+                    pointBackgroundColor: '#E53E3E',
+                    tension: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Delhi Population Growth vs. Fixed Water Allocation',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568'
+                    }
+                }
+            },
+            scales: {
+                'y-population': {
+                    position: 'left',
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Population (Millions)',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                'y-water': {
+                    position: 'right',
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Water Allocation (BCM)',
+                        color: '#E53E3E'
+                    },
+                    grid: {
+                        drawOnChartArea: false // Only draw grid lines for the left Y-axis
+                    },
+                    ticks: {
+                        color: '#E53E3E'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 7. Non-Revenue Water Breakdown (Doughnut)
+    new Chart(document.getElementById('nrwChart'), {
+        type: 'doughnut',
+        data: {
+            labels: appData.nrw.labels,
+            datasets: [{
+                data: appData.nrw.data,
+                backgroundColor: ['#F6AD55', '#4299E1'], // Orange, Blue
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Non-Revenue Water Breakdown (Total 52%)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed + '%';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // 8. Pending Dues by Sector (Bar Chart)
+    new Chart(document.getElementById('duesChart'), {
+        type: 'bar',
+        data: {
+            labels: appData.dues.labels,
+            datasets: [{
+                label: 'Pending Dues (₹ Crore)',
+                data: appData.dues.data,
+                backgroundColor: ['#DD6B20', '#4299E1', '#48BB78'], // Orange, Blue, Green
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Total Pending Water Bill Dues (₹1.42 Lakh Crore)',
+                    font: { size: 16, weight: 'bold' },
+                    color: '#1A202C'
+                },
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Amount (₹ Crore)',
+                        color: '#4A5568'
+                    },
+                    grid: {
+                        color: '#E2E8F0'
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#4A5568'
+                    }
+                }
+            }
+        }
+    });
+
+    // --- Household Cards Interaction ---
+    const householdCardsContainer = document.getElementById('household-cards');
+    const householdDetailsContainer = document.getElementById('household-details-container');
+
+    function renderHouseholdCards() {
+        householdCardsContainer.innerHTML = '';
+        appData.households.forEach(household => {
+            const card = document.createElement('div');
+            card.id = `household-${household.id}`;
+            card.className = 'household-card bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center justify-center';
+            card.innerHTML = `
+                <span class="text-4xl mb-3">${household.icon}</span>
+                <h4 class="font-bold text-lg text-gray-800 text-center">${household.name}</h4>
+                <p class="text-sm text-gray-500 text-center mt-1">${household.summary}</p>
+            `;
+            card.addEventListener('click', () => {
+                displayHouseholdDetails(household);
+                // Remove active class from all cards
+                document.querySelectorAll('.household-card').forEach(c => c.classList.remove('active'));
+                // Add active class to the clicked card
+                card.classList.add('active');
+            });
+            householdCardsContainer.appendChild(card);
+        });
+        // Automatically select the first card on load
+        if (appData.households.length > 0) {
+            displayHouseholdDetails(appData.households[0]);
+            document.getElementById(`household-${appData.households[0].id}`).classList.add('active');
+        }
+    }
+
+    function displayHouseholdDetails(household) {
+        householdDetailsContainer.innerHTML = household.details;
+    }
+
+    renderHouseholdCards();
+
+    // --- Recommendations Accordion ---
+    const accordionContainer = document.getElementById('accordion-container');
+
+    function renderRecommendationsAccordion() {
+        accordionContainer.innerHTML = '';
+        appData.recommendations.forEach((rec, index) => {
+            const accordionItem = document.createElement('div');
+            accordionItem.className = 'border border-gray-200 rounded-lg overflow-hidden';
+            accordionItem.innerHTML = `
+                <button class="accordion-header flex justify-between items-center w-full p-4 text-left font-semibold text-lg text-blue-800 bg-gray-50 hover:bg-gray-100 transition-colors duration-300">
+                    <span>${rec.title}</span>
+                    <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content px-4 pt-0 pb-4 text-gray-700">
+                    ${rec.content}
+                </div>
+            `;
+            accordionContainer.appendChild(accordionItem);
+
+            const header = accordionItem.querySelector('.accordion-header');
+            const content = accordionItem.querySelector('.accordion-content');
+            const icon = header.querySelector('svg');
+
+            header.addEventListener('click', () => {
+                const isOpen = content.style.maxHeight !== '0px';
+                if (isOpen) {
+                    content.style.maxHeight = '0px';
+                    icon.classList.remove('rotate-180');
+                } else {
+                    // Close all other open accordions
+                    document.querySelectorAll('.accordion-content').forEach(otherContent => {
+                        if (otherContent !== content && otherContent.style.maxHeight !== '0px') {
+                            otherContent.style.maxHeight = '0px';
+                            otherContent.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                        }
+                    });
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    }
+
+    renderRecommendationsAccordion();
 
 });
 </script>
